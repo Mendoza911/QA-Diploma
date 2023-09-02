@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  node-app:
+    build: artifact
+    image: node-app:1.0
+    ports:
+      - '9999:9999'
   mysql:
     image: mysql:8
     restart: always
