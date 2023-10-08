@@ -37,4 +37,5 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'selenide.headless2', System.getProperty('selenide.headless2', "postgresql")
 }

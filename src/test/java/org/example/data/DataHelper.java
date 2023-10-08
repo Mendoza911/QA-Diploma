@@ -39,7 +39,7 @@ public class DataHelper {
         return getDeclinedCard;
     }
 
-    public static String generateСVC(Integer length) {
+    public static String generateCVC(Integer length) {
         return faker.number().digits(length);
     }
 

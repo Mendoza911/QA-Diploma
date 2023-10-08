@@ -8,10 +8,12 @@ import org.example.data.SQLHelper;
 import org.example.page.RootPage;
 import org.example.page.FormPage;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.example.data.SQLHelper.clearTables;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,16 +26,18 @@ public class CreditTest {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
+
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
 
     @BeforeEach
-    void setup() {
+    void setup() throws SQLException {
         open("http://localhost:8080");
         var rootPage = new RootPage();
         formPage = rootPage.openCreditPage(indexPage);
+        clearTables();
     }
 
     String getApprovedCard = DataHelper.getApprovedCard();
@@ -41,13 +45,13 @@ public class CreditTest {
     Integer indexPage = 1;
     String month = DataHelper.generateDate(2, "MM");
     String year = DataHelper.generateDate(2, "yy");
-    String cvc = DataHelper.generateСVC(3);
+    String cvc = DataHelper.generateCVC(3);
     String usualName = DataHelper.generateUsualName();
     String nameWithDot = DataHelper.generateNameWithDot();
     String nameWithDash = DataHelper.generateNameWithDash();
     String minName = DataHelper.generateMinName();
 
-    // Позитивные тесты
+    // Позитивные тестыStatement
 
     @Test
     @DisplayName("Тест 1: Ввод допустимых значений в поля формы")
@@ -55,8 +59,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     @Test
@@ -65,8 +69,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDash, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     @Test
@@ -75,8 +79,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     @Test
@@ -85,8 +89,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDot, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     @Test
@@ -95,8 +99,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, minName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     // Негативные тесты
@@ -107,8 +111,8 @@ public class CreditTest {
         var declinedCardInfo = DataHelper.getCardInfo(getDeclinedCard, usualName, cvc, month, year);
         formPage.getUser(declinedCardInfo);
         assertAll(() -> formPage.negativeNotification(),
-                () -> assertEquals("DECLINED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+                () -> assertEquals("DECLINED", SQLHelper.getCreditData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
     }
 
     @Test
@@ -175,7 +179,7 @@ public class CreditTest {
     @Test
     @DisplayName("Тест 9: Ввод значения в поле Месяц недопустимого формата (X вместо XX)")
     void enteringMonthNotValidFormat() {
-        String invalidMonth = DataHelper.generateСVC(1);
+        String invalidMonth = DataHelper.generateCVC(1);
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, invalidMonth, year);
         formPage.getUser(approvedCardInfo);
         formPage.getWrongFormat(1);
@@ -201,7 +205,7 @@ public class CreditTest {
     @Test
     @DisplayName("Тест 12: Ввод недопустимого значения в поле Год (X вместо XX)")
     void enteringInvalidYear() {
-        String invalidYear = DataHelper.generateСVC(1);
+        String invalidYear = DataHelper.generateCVC(1);
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, invalidYear);
         formPage.getUser(approvedCardInfo);
         formPage.getWrongFormat(2);
@@ -250,7 +254,7 @@ public class CreditTest {
     @Test
     @DisplayName("Тест 18: Ввод значения в поле CVC/CVV длинной менее, чем допустимое")
     void enteringCVCLessThanAllowed() {
-        var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, DataHelper.generateСVC(2), month, year);
+        var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, DataHelper.generateCVC(2), month, year);
         formPage.getUser(approvedCardInfo);
         formPage.getWrongFormat(4);
     }

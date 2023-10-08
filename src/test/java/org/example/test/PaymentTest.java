@@ -7,11 +7,15 @@ import org.example.data.DataHelper;
 import org.example.data.SQLHelper;
 import org.example.page.RootPage;
 import org.example.page.FormPage;
+import org.openqa.selenium.devtools.v113.debugger.Debugger;
 
+import java.sql.SQLData;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.example.data.SQLHelper.clearTables;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -29,17 +33,18 @@ class PaymentTest {
     }
 
     @BeforeEach
-    void setup() {
+    void setup() throws SQLException {
         open("http://localhost:8080");
         var rootPage = new RootPage();
         formPage = rootPage.openPayPage(indexPage);
+        clearTables();
     }
     String getApprovedCard = DataHelper.getApprovedCard();
     String getDeclinedCard = DataHelper.getDeclinedCard();
     Integer indexPage = 0;
     String month = DataHelper.generateDate(2, "MM");
     String year = DataHelper.generateDate(2, "yy");
-    String cvc = DataHelper.generateСVC(3);
+    String cvc = DataHelper.generateCVC(3);
     String usualName = DataHelper.generateUsualName();
     String nameWithDot = DataHelper.generateNameWithDot();
     String nameWithDash = DataHelper.generateNameWithDash();
@@ -52,9 +57,12 @@ class PaymentTest {
     void payTurAPPROVEDCard() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+        SQLHelper.PaymentEntity paymentEntity = SQLHelper.getPayData();
+        assertAll(
+                () -> formPage.positiveNotification(),
+                () -> assertEquals("APPROVED", paymentEntity.getStatus()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), paymentEntity.getTransaction_id())
+        );
     }
 
     @Test
@@ -63,8 +71,8 @@ class PaymentTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDash, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getPayData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()));
     }
 
     @Test
@@ -73,8 +81,8 @@ class PaymentTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getPayData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()));
     }
 
     @Test
@@ -83,8 +91,8 @@ class PaymentTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDot, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getPayData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()));
     }
 
     @Test
@@ -93,8 +101,8 @@ class PaymentTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, minName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+                () -> assertEquals("APPROVED", SQLHelper.getPayData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()));
     }
 
     // Негативные тесты
@@ -105,8 +113,8 @@ class PaymentTest {
         var declinedCardInfo = DataHelper.getCardInfo(getDeclinedCard, usualName, cvc, month, year);
         formPage.getUser(declinedCardInfo);
         assertAll(() -> formPage.negativeNotification(),
-                () -> assertEquals("DECLINED", SQLHelper.getPayData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()[0]));
+                () -> assertEquals("DECLINED", SQLHelper.getPayData()),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getPayData()));
 
     }
 

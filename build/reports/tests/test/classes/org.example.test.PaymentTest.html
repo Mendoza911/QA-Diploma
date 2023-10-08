@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">10.032s</div>
+<div class="counter">11.696s</div>
 <p>duration</p>
 </div>
 </td>
@@ -73,8 +73,8 @@
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
 <div class="test">
-<a name="payTurAPPROVEDCardOwnerMinName()"></a>
-<h3 class="failures">Тест 5: Ввод допустимых значений в поля формы, значение поля Владелец четыре символа</h3>
+<a name="payTurAPPROVEDCard()"></a>
+<h3 class="failures">Тест 1: Ввод допустимых значений в поля формы</h3>
 <span class="code">
 <pre>org.gradle.internal.exceptions.DefaultMultiCauseException: Multiple Failures (2 failures)
 	java.lang.NullPointerException: &lt;no message&gt;
@@ -83,7 +83,7 @@
 	at app//org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
 	at app//org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
 	at app//org.junit.jupiter.api.Assertions.assertAll(Assertions.java:2911)
-	at app//org.example.test.PaymentTest.payTurAPPROVEDCardOwnerMinName(PaymentTest.java:95)
+	at app//org.example.test.PaymentTest.payTurAPPROVEDCard(PaymentTest.java:61)
 	at java.base@11.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base@11.0.18/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base@11.0.18/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -173,8 +173,7 @@
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 	Suppressed: java.lang.NullPointerException
-		at org.example.data.SQLHelper.getPayData(SQLHelper.java:44)
-		at org.example.test.PaymentTest.lambda$payTurAPPROVEDCardOwnerMinName$13(PaymentTest.java:96)
+		at org.example.test.PaymentTest.lambda$payTurAPPROVEDCard$1(PaymentTest.java:63)
 		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
 		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
 		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
@@ -186,8 +185,7 @@
 		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
 		... 92 more
 	Suppressed: java.lang.NullPointerException
-		at org.example.data.SQLHelper.getPayData(SQLHelper.java:44)
-		at org.example.test.PaymentTest.lambda$payTurAPPROVEDCardOwnerMinName$14(PaymentTest.java:97)
+		at org.example.test.PaymentTest.lambda$payTurAPPROVEDCard$2(PaymentTest.java:64)
 		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
 		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
 		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
@@ -199,8 +197,7 @@
 		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
 		... 92 more
 Cause 1: java.lang.NullPointerException
-	at org.example.data.SQLHelper.getPayData(SQLHelper.java:44)
-	at org.example.test.PaymentTest.lambda$payTurAPPROVEDCardOwnerMinName$13(PaymentTest.java:96)
+	at org.example.test.PaymentTest.lambda$payTurAPPROVEDCard$1(PaymentTest.java:63)
 	at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
 	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
@@ -213,7 +210,7 @@ Cause 1: java.lang.NullPointerException
 	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
 	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
 	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:2911)
-	at org.example.test.PaymentTest.payTurAPPROVEDCardOwnerMinName(PaymentTest.java:95)
+	at org.example.test.PaymentTest.payTurAPPROVEDCard(PaymentTest.java:61)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -303,8 +300,7 @@ Cause 1: java.lang.NullPointerException
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 Cause 2: java.lang.NullPointerException
-	at org.example.data.SQLHelper.getPayData(SQLHelper.java:44)
-	at org.example.test.PaymentTest.lambda$payTurAPPROVEDCardOwnerMinName$14(PaymentTest.java:97)
+	at org.example.test.PaymentTest.lambda$payTurAPPROVEDCard$2(PaymentTest.java:64)
 	at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
 	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
@@ -317,7 +313,7 @@ Cause 2: java.lang.NullPointerException
 	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
 	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
 	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:2911)
-	at org.example.test.PaymentTest.payTurAPPROVEDCardOwnerMinName(PaymentTest.java:95)
+	at org.example.test.PaymentTest.payTurAPPROVEDCard(PaymentTest.java:61)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -422,9 +418,9 @@ Cause 2: java.lang.NullPointerException
 </tr>
 </thead>
 <tr>
-<td class="failures">Тест 5: Ввод допустимых значений в поля формы, значение поля Владелец четыре символа</td>
-<td class="failures">payTurAPPROVEDCardOwnerMinName()</td>
-<td class="failures">10.032s</td>
+<td class="failures">Тест 1: Ввод допустимых значений в поля формы</td>
+<td class="failures">payTurAPPROVEDCard()</td>
+<td class="failures">11.696s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -432,7 +428,7 @@ Cause 2: java.lang.NullPointerException
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>Sep 02, 2023 9:44:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+<pre>Oct 07, 2023 4:50:31 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 116, so returning the closest version found: 115
 </pre>
 </span>
@@ -445,7 +441,7 @@ WARNING: Unable to find an exact match for CDP version 116, so returning the clo
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.2</a> at Sep 2, 2023, 9:44:13 PM</p>
+<a href="http://www.gradle.org">Gradle 8.2</a> at Oct 7, 2023, 4:50:42 PM</p>
 </div>
 </div>
 </body>

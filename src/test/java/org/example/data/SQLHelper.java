@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.sql.Statement;
 
 public class SQLHelper {
     private static QueryRunner runner = new QueryRunner();
@@ -35,13 +34,13 @@ public class SQLHelper {
     }
 
 
-    @Test
+    @Data
     @SneakyThrows
-    public static String[] getPayData() {// платежная организация
+    public static PaymentEntity getPayData() {// платежная организация
         var codeSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(PaymentEntity.class));
-        return new String[] {result.getTransaction_id(), result.getStatus()};
+        return result;
     }
 
     @Data
@@ -52,14 +51,21 @@ public class SQLHelper {
         private String created;
         private String status;
         private String transaction_id;
+
+        public String getStatus() {
+        }
+
+        public String getTransaction_id() {
+        }
     }
-    @Test
+
+    @Data
     @SneakyThrows
     public static String[] getCreditData() {// сущность кредитного запроса
         var codeSQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(CreditRequest.class));
-        return new String[] {result.getBank_id(), result.getStatus()};
+        return new String[]{result.getBank_id(), result.getStatus()};
     }
 
     @Data
@@ -68,6 +74,19 @@ public class SQLHelper {
         private String id;
         private String bank_id;
         private String created;
-        private String  status;
+        private String status;
+
     }
+
+    public static void clearTables() throws SQLException {
+        Connection conn = null;
+        Statement stmt = null;
+        conn = getConn();
+        stmt = conn.createStatement();
+        stmt.executeUpdate("truncate table payment_entity;");
+        stmt.executeUpdate("truncate table payment_entity;");
+        stmt.executeUpdate("truncate table credit_request_entity;");
+    }
+
+
 }
