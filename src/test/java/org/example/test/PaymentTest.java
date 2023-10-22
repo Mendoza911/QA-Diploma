@@ -36,7 +36,7 @@ class PaymentTest {
     void setup() throws SQLException {
         open("http://localhost:8080");
         var rootPage = new RootPage();
-        formPage = rootPage.openPayPage(indexPage);
+        formPage = rootPage.openPayPage(0);
         clearTables();
     }
     String getApprovedCard = DataHelper.getApprovedCard();

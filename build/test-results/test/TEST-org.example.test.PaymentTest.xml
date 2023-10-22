@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.test.PaymentTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-10-07T13:50:30" hostname="kirill-Dell-G15-5520" time="11.696">
+<testsuite name="org.example.test.PaymentTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-10-22T06:06:33" hostname="kirill-Dell-G15-5520" time="12.302">
   <properties/>
-  <testcase name="Тест 1: Ввод допустимых значений в поля формы" classname="org.example.test.PaymentTest" time="11.696">
+  <testcase name="Тест 1: Ввод допустимых значений в поля формы" classname="org.example.test.PaymentTest" time="12.302">
     <failure message="org.gradle.internal.exceptions.DefaultMultiCauseException: Multiple Failures (2 failures)&#10;&#9;java.lang.NullPointerException: &lt;no message&gt;&#10;&#9;java.lang.NullPointerException: &lt;no message&gt;" type="org.gradle.internal.exceptions.DefaultMultiCauseException">org.gradle.internal.exceptions.DefaultMultiCauseException: Multiple Failures (2 failures)
 	java.lang.NullPointerException: &lt;no message&gt;
 	java.lang.NullPointerException: &lt;no message&gt;
@@ -331,7 +331,7 @@ Cause 2: java.lang.NullPointerException
 </failure>
   </testcase>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Oct 07, 2023 4:50:31 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find an exact match for CDP version 116, so returning the closest version found: 115
+  <system-err><![CDATA[Oct 22, 2023 9:06:35 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 118, so returning the closest version found: 115
 ]]></system-err>
 </testsuite>

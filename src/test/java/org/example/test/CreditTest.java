@@ -36,7 +36,7 @@ public class CreditTest {
     void setup() throws SQLException {
         open("http://localhost:8080");
         var rootPage = new RootPage();
-        formPage = rootPage.openCreditPage(indexPage);
+        formPage = rootPage.openCreditPage(1);
         clearTables();
     }
 
@@ -59,8 +59,8 @@ public class CreditTest {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
         assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
+                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
     }
 
     @Test

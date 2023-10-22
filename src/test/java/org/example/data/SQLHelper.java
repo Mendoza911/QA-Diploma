@@ -34,7 +34,7 @@ public class SQLHelper {
     }
 
 
-    @Data
+    @Test
     @SneakyThrows
     public static PaymentEntity getPayData() {// платежная организация
         var codeSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1";
@@ -52,14 +52,9 @@ public class SQLHelper {
         private String status;
         private String transaction_id;
 
-        public String getStatus() {
-        }
-
-        public String getTransaction_id() {
-        }
     }
 
-    @Data
+    @Test
     @SneakyThrows
     public static String[] getCreditData() {// сущность кредитного запроса
         var codeSQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
