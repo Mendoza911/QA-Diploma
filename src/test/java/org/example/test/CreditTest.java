@@ -14,8 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.example.data.SQLHelper.clearTables;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CreditTest {
@@ -58,9 +57,10 @@ public class CreditTest {
     void payTurAPPROVEDCard() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()[1]),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()[0]));
+        assertDoesNotThrow(() -> formPage.positiveNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("APPROVED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     @Test
@@ -68,9 +68,10 @@ public class CreditTest {
     void payTurAPPROVEDCardOwnerWithDash() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDash, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+        assertDoesNotThrow(() -> formPage.positiveNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("APPROVED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     @Test
@@ -78,9 +79,10 @@ public class CreditTest {
     void payTurAPPROVEDCardOwnerWithoutDash() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+        assertDoesNotThrow(() -> formPage.positiveNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("APPROVED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     @Test
@@ -88,9 +90,10 @@ public class CreditTest {
     void payTurAPPROVEDCardOwnerWithDot() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, nameWithDot, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+        assertDoesNotThrow(() -> formPage.positiveNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("APPROVED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     @Test
@@ -98,9 +101,10 @@ public class CreditTest {
     void payTurAPPROVEDCardOwnerMinName() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, minName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        assertAll(() -> formPage.positiveNotification(),
-                () -> assertEquals("APPROVED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+        assertDoesNotThrow(() -> formPage.positiveNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("APPROVED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     // Негативные тесты
@@ -110,9 +114,10 @@ public class CreditTest {
     void payTurDECLINEDCard() {
         var declinedCardInfo = DataHelper.getCardInfo(getDeclinedCard, usualName, cvc, month, year);
         formPage.getUser(declinedCardInfo);
-        assertAll(() -> formPage.negativeNotification(),
-                () -> assertEquals("DECLINED", SQLHelper.getCreditData()),
-                () -> assertEquals(SQLHelper.getUserPaymentId(), SQLHelper.getCreditData()));
+        assertDoesNotThrow(() -> formPage.negativeNotification());
+        SQLHelper.CreditRequest creditRequest = SQLHelper.getCreditData();
+        assertEquals("DECLINED", creditRequest.getStatus());
+        assertEquals(SQLHelper.getUserPaymentId(), creditRequest.getBank_id());
     }
 
     @Test

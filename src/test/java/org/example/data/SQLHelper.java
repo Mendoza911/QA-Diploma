@@ -56,11 +56,11 @@ public class SQLHelper {
 
     @Test
     @SneakyThrows
-    public static String[] getCreditData() {// сущность кредитного запроса
+    public static CreditRequest getCreditData() {// сущность кредитного запроса
         var codeSQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(CreditRequest.class));
-        return new String[]{result.getBank_id(), result.getStatus()};
+        return result;
     }
 
     @Data
