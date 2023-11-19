@@ -38,5 +38,5 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    systemProperty 'selenide.headless2', System.getProperty('selenide.headless2', "postgresql")
+    systemProperty 'spring.datasource.url', System.getProperty('spring.datasource.url', "jdbc:mysql://localhost:3306/app")
 }

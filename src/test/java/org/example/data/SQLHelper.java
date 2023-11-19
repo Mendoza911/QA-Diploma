@@ -19,13 +19,13 @@ public class SQLHelper {
     private SQLHelper() {
     }
 
+    @SneakyThrows
     private static Connection getConn() throws SQLException {
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/app", "app", "pass");
+        var url = System.getProperty("spring.datasource.url");
+        return DriverManager.getConnection(url, "app", "pass");
     }
 
     @SneakyThrows
-
     public static String getUserPaymentId() { // сущность заказа
         var codeSQL = "SELECT payment_id FROM order_entity ORDER BY created DESC LIMIT 1";
         var conn = getConn();
@@ -34,7 +34,7 @@ public class SQLHelper {
     }
 
 
-    @Test
+
     @SneakyThrows
     public static PaymentEntity getPayData() {// платежная организация
         var codeSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1";
@@ -54,7 +54,6 @@ public class SQLHelper {
 
     }
 
-    @Test
     @SneakyThrows
     public static CreditRequest getCreditData() {// сущность кредитного запроса
         var codeSQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
@@ -72,16 +71,12 @@ public class SQLHelper {
         private String status;
 
     }
-
+    @SneakyThrows
     public static void clearTables() throws SQLException {
-        Connection conn = null;
-        Statement stmt = null;
-        conn = getConn();
-        stmt = conn.createStatement();
+        var conn = getConn();
+        var stmt = conn.createStatement();
         stmt.executeUpdate("truncate table payment_entity;");
         stmt.executeUpdate("truncate table payment_entity;");
         stmt.executeUpdate("truncate table credit_request_entity;");
     }
-
-
 }

@@ -2,6 +2,7 @@ package org.example.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
 import org.example.data.DataHelper;
 import org.example.data.SQLHelper;
@@ -31,13 +32,20 @@ public class CreditTest {
         SelenideLogger.removeListener("allure");
     }
 
+    @SneakyThrows
     @BeforeEach
-    void setup() throws SQLException {
+    void setup() {
         open("http://localhost:8080");
         var rootPage = new RootPage();
         formPage = rootPage.openCreditPage(1);
         clearTables();
     }
+//    void setup() throws SQLException {
+//        open("http://localhost:8080");
+//        var rootPage = new RootPage();
+//        formPage = rootPage.openCreditPage(1);
+//        clearTables();
+//    }
 
     String getApprovedCard = DataHelper.getApprovedCard();
     String getDeclinedCard = DataHelper.getDeclinedCard();

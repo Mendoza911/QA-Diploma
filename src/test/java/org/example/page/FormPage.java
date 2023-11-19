@@ -40,6 +40,7 @@ public class FormPage {
     }
     public void getWrongFormat(int indexPage) {
         validationMessage.get(indexPage).shouldHave(text("Неверный формат")).shouldBe(visible);
+        System.out.println(validationMessage.get(indexPage));
     }
     public void getWrongFormatMonth(int indexPage) {
         validationMessage.get(indexPage).shouldHave(text("Неверно указан срок действия карты")).shouldBe(visible);

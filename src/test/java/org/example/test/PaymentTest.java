@@ -37,7 +37,7 @@ class PaymentTest {
         open("http://localhost:8080");
         var rootPage = new RootPage();
         formPage = rootPage.openPayPage(0);
-        clearTables();
+//        clearTables();
     }
     String getApprovedCard = DataHelper.getApprovedCard();
     String getDeclinedCard = DataHelper.getDeclinedCard();
@@ -165,7 +165,7 @@ class PaymentTest {
     void sendingFormWithoutCVC() {
         var approvedCardInfo = DataHelper.getCardInfo(getApprovedCard, usualName, cvc, month, year);
         formPage.getUser(approvedCardInfo);
-        formPage.getValidationMessage(4);
+        formPage.getWrongFormat(4);
     }
     @Test
     @DisplayName("Тест 8: Оплата просроченной картой, срок действия карты истек месяц назад")
