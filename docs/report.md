@@ -8,7 +8,7 @@
 #### В ходе тестирования было выполнено 44 тест-кейсов, которые проверяют работу приложения.
 
 Процент успешных тест - кейсов составляет 40.24% и проваленных тест-кейсов 59,75%.    
-![image](![image](https://github.com/Mendoza911/QA-Diploma/assets/118293251/5edb2732-b7eb-484e-ab0d-f3c444dcad3a))      
+![image](https://github.com/Mendoza911/QA-Diploma/assets/118293251/5edb2732-b7eb-484e-ab0d-f3c444dcad3a)      
 
 #### Баг-репорты оформлены в [issue](https://github.com/Mendoza911/QA-Diploma/issues)
 
